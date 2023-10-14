@@ -1,11 +1,11 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { ThemeProvider } from './context/themeContext';
 import App from './App';
 import 'tailwindcss/tailwind.css';
+import { createRoot } from 'react-dom/client';
 
 const rootElement = document.getElementById('root');
-ReactDOM.createRoot(rootElement).render(
+createRoot(rootElement).render(
   <ThemeProvider>
     <App />
   </ThemeProvider>
