@@ -5,9 +5,20 @@ import 'tailwindcss/tailwind.css';
 function TaskItem({ task, onSave, onDelete }) {
     const [isEditing, setIsEditing] = useState(false);
     const [newTask, setNewTask] = useState(task);
+    const [errors, setErrors] = useState({});
 
     const handleSave = () => {
         console.log("Attempting to update task", newTask);
+        
+        let errorObj = {};
+        if (!newTask.task) errorObj.task = "Task is required!";
+        if (!newTask.description) errorObj.description = "Description is required!";
+        
+        if (Object.keys(errorObj).length) {
+            setErrors(errorObj);
+            return;
+        }
+
         onSave(newTask);
         setIsEditing(false);
     };
@@ -17,15 +28,25 @@ function TaskItem({ task, onSave, onDelete }) {
     return (
         <div className="bg-white p-4 rounded shadow">
             {isEditing ? (
-                <>
-                    <TextField
-                        value={newTask.task}
-                        onChange={(e) => setNewTask({ ...newTask, task: e.target.value })}
-                    />
-                    <TextField
-                        value={newTask.description}
-                        onChange={(e) => setNewTask({ ...newTask, description: e.target.value })}
-                    />
+                <div className="flex space-x-2">
+                    <div className="flex flex-col">
+                        {errors.task && <p className="text-red-500 text-xs">{errors.task}</p>}
+                        <TextField
+                            value={newTask.task}
+                            onChange={(e) => setNewTask({ ...newTask, task: e.target.value })}
+                            className={errors.task ? 'border-red-500' : ''}
+                        />
+                    </div>
+                    
+                    <div className="flex flex-col">
+                        {errors.description && <p className="text-red-500 text-xs">{errors.description}</p>}
+                        <TextField
+                            value={newTask.description}
+                            onChange={(e) => setNewTask({ ...newTask, description: e.target.value })}
+                            className={errors.description ? 'border-red-500' : ''}
+                        />
+                    </div>
+                    
                     <Select
                         value={priorityValue}
                         onChange={(e) => setNewTask({ ...newTask, priority: e.target.value })}
@@ -34,16 +55,17 @@ function TaskItem({ task, onSave, onDelete }) {
                         <MenuItem value="Medium">Medium</MenuItem>
                         <MenuItem value="High">High</MenuItem>
                     </Select>
+                    
                     <Button onClick={handleSave}>Save</Button>
-                </>
+                </div>
             ) : (
-                <>
+                <div className="flex items-center space-x-2">
                     <div>
                         <strong>{task.task}</strong> - {task.description} (Priority: {task.priority})
                     </div>
                     <Button onClick={() => setIsEditing(true)}>Edit</Button>
                     <Button onClick={() => onDelete(task._id)}>Delete</Button>
-                </>
+                </div>
             )}
         </div>
     );

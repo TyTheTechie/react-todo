@@ -4,42 +4,71 @@ import TaskItem from './TaskItem';
 import { getTasks, createTask, updateTask, deleteTask } from '../services/apiService';
 import 'tailwindcss/tailwind.css';
 
-function TaskList() {
+const useFetchTasks = () => {
     const [tasks, setTasks] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         const fetchTasks = async () => {
-            const data = await getTasks();
-            setTasks(data);
+            try {
+                const data = await getTasks();
+                setTasks(data);
+                setIsLoading(false);
+            } catch (err) {
+                setError('Failed to fetch tasks. Please try again.');
+                setIsLoading(false);
+            }
         };
         fetchTasks();
     }, []);
 
-    const handleSave = async (task) => {
-        if (task._id) {
-            const updatedTask = await updateTask(task._id, task);
-            setTasks(tasks.map(t => (t._id === updatedTask._id ? updatedTask : t)));
-        } else {
-            const newTask = await createTask(task);
-            setTasks([...tasks, newTask]);
+    return { tasks, isLoading, error, setTasks };
+};
+
+function TaskList() {
+    const { tasks, isLoading, error, setTasks } = useFetchTasks();
+
+    const handleTaskSave = async (task) => {
+        try {
+            if (task._id) {
+                const updatedTask = await updateTask(task._id, task);
+                setTasks(prevTasks => prevTasks.map(t => (t._id === updatedTask._id ? updatedTask : t)));
+            } else {
+                const newTask = await createTask(task);
+                setTasks(prevTasks => [...prevTasks, newTask]);
+            }
+        } catch (err) {
+            setError('Failed to save task. Please try again.');
         }
     };
 
-    const handleDelete = async (id) => {
-        await deleteTask(id);
-        setTasks(tasks.filter(t => t._id !== id));
+    const handleTaskDelete = async (id) => {
+        try {
+            await deleteTask(id);
+            setTasks(prevTasks => prevTasks.filter(t => t._id !== id));
+        } catch (err) {
+            setError('Failed to delete task. Please try again.');
+        }
     };
 
     return (
         <div>
-            <TaskForm onSave={handleSave} />
-            <ul className="list-none">
-                {tasks.map(task => (
-                    <li className="mb-4" key={task._id}>
-                        <TaskItem task={task} onSave={handleSave} onDelete={handleDelete} />
-                    </li>
-                ))}
-            </ul>
+            {error && <p className="text-red-500">{error}</p>}
+            {isLoading ? (
+                <p>Loading tasks...</p>
+            ) : (
+                <>
+                    <TaskForm onSave={handleTaskSave} />
+                    <ul className="list-none">
+                        {tasks.map(task => (
+                            <li className="mb-4" key={task._id}>
+                                <TaskItem task={task} onSave={handleTaskSave} onDelete={handleTaskDelete} />
+                            </li>
+                        ))}
+                    </ul>
+                </>
+            )}
         </div>
     );
 }
