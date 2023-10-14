@@ -27,40 +27,42 @@ function TaskForm({ onSave }) {
 
     return (
         <div className="mb-4">
-            <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2">
-                <div className="flex flex-col">
+            <div className="flex flex-wrap space-y-2 md:space-y-0 md:space-x-2">
+                <div className="flex flex-col w-full md:w-auto">
                     {errors.task && <p className="text-red-500 text-xs">{errors.task}</p>}
                     <input
                         type="text"
                         value={task}
                         onChange={(e) => setTask(e.target.value)}
                         placeholder="Task"
-                        className={`px-3 py-2 border ${errors.task ? 'border-red-500' : 'border-gray-300'} rounded-md`}
+                        className={`px-3 py-2 border ${errors.task ? 'border-red-500' : 'border-gray-300'} rounded-md w-full`}
                     />
                 </div>
                 
-                <div className="flex flex-col">
+                <div className="flex flex-col w-full md:w-auto">
                     {errors.description && <p className="text-red-500 text-xs">{errors.description}</p>}
                     <input
                         type="text"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         placeholder="Description"
-                        className={`px-3 py-2 border ${errors.description ? 'border-red-500' : 'border-gray-300'} rounded-md`}
+                        className={`px-3 py-2 border ${errors.description ? 'border-red-500' : 'border-gray-300'} rounded-md w-full`}
                     />
                 </div>
                 
-                <select
-                    value={priority}
-                    onChange={(e) => setPriority(e.target.value)}
-                    className="px-3 py-2 border rounded-md"
-                >
-                    <option>Low</option>
-                    <option>Medium</option>
-                    <option>High</option>
-                </select>
+                <div className="flex flex-col w-full md:w-auto">
+                    <select
+                        value={priority}
+                        onChange={(e) => setPriority(e.target.value)}
+                        className="px-3 py-2 border rounded-md w-full"
+                    >
+                        <option>Low</option>
+                        <option>Medium</option>
+                        <option>High</option>
+                    </select>
+                </div>
                 
-                <button onClick={handleSave} className="px-4 py-2 bg-blue-500 text-white rounded-md">
+                <button onClick={handleSave} className="px-4 py-2 bg-blue-500 text-white rounded-md w-full md:w-auto">
                     Save
                 </button>
             </div>

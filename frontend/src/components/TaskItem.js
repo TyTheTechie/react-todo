@@ -29,42 +29,49 @@ function TaskItem({ task, onSave, onDelete }) {
         <div className="bg-white p-4 rounded shadow">
             {isEditing ? (
                 <div className="flex space-x-2">
-                    <div className="flex flex-col">
+                    <div className="flex flex-col flex-grow">
                         {errors.task && <p className="text-red-500 text-xs">{errors.task}</p>}
                         <TextField
                             value={newTask.task}
                             onChange={(e) => setNewTask({ ...newTask, task: e.target.value })}
                             className={errors.task ? 'border-red-500' : ''}
+                            fullWidth
                         />
                     </div>
                     
-                    <div className="flex flex-col">
+                    <div className="flex flex-col flex-grow">
                         {errors.description && <p className="text-red-500 text-xs">{errors.description}</p>}
                         <TextField
                             value={newTask.description}
                             onChange={(e) => setNewTask({ ...newTask, description: e.target.value })}
                             className={errors.description ? 'border-red-500' : ''}
+                            fullWidth
                         />
                     </div>
                     
-                    <Select
-                        value={priorityValue}
-                        onChange={(e) => setNewTask({ ...newTask, priority: e.target.value })}
-                    >
-                        <MenuItem value="Low">Low</MenuItem>
-                        <MenuItem value="Medium">Medium</MenuItem>
-                        <MenuItem value="High">High</MenuItem>
-                    </Select>
+                    <div className="flex flex-col">
+                        <Select
+                            value={priorityValue}
+                            onChange={(e) => setNewTask({ ...newTask, priority: e.target.value })}
+                            style={{ minWidth: '120px' }}
+                        >
+                            <MenuItem value="Low">Low</MenuItem>
+                            <MenuItem value="Medium">Medium</MenuItem>
+                            <MenuItem value="High">High</MenuItem>
+                        </Select>
+                    </div>
                     
-                    <Button onClick={handleSave}>Save</Button>
+                    <Button onClick={handleSave} style={{ minWidth: '80px' }}>Save</Button>
                 </div>
             ) : (
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center justify-between">
                     <div>
                         <strong>{task.task}</strong> - {task.description} (Priority: {task.priority})
                     </div>
-                    <Button onClick={() => setIsEditing(true)}>Edit</Button>
-                    <Button onClick={() => onDelete(task._id)}>Delete</Button>
+                    <div>
+                        <Button onClick={() => setIsEditing(true)}>Edit</Button>
+                        <Button onClick={() => onDelete(task._id)}>Delete</Button>
+                    </div>
                 </div>
             )}
         </div>
