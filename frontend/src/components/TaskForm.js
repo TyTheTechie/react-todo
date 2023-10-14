@@ -27,7 +27,7 @@ function TaskForm({ onSave }) {
 
     return (
         <div className="mb-4">
-            <div className="flex space-x-2">
+            <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2">
                 <div className="flex flex-col">
                     {errors.task && <p className="text-red-500 text-xs">{errors.task}</p>}
                     <input
