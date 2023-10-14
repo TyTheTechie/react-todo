@@ -15,7 +15,11 @@ export const createTodo = async (req, res) => {
         await todo.save();
         res.status(201).json(todo);
     } catch (error) {
-        res.status(400).json({ message: error.message });
+        if (error.name === 'ValidationError') {
+            res.status(400).json({ message: "Task field is required." });
+        } else {
+            res.status(400).json({ message: error.message });
+        }
     }
 };
 

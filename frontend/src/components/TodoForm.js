@@ -7,6 +7,12 @@ function TodoForm({ onSave }) {
     const [priority, setPriority] = useState('Low');
 
     const handleSave = () => {
+        console.log("Attempting to save todo with data:", { task, description, priority });
+        if (!task) {
+            console.warn("Task field is empty. Aborting save operation.");
+            alert("Task field is required!");
+            return;
+        }
         onSave({ task, description, priority });
         setTask('');
         setDescription('');
@@ -44,5 +50,7 @@ function TodoForm({ onSave }) {
         </div>
     );
 }
+
+
 
 export default TodoForm;
