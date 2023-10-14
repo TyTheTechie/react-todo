@@ -7,6 +7,7 @@ function TodoItem({ todo, onSave, onDelete }) {
     const [newTodo, setNewTodo] = useState(todo);
 
     const handleSave = () => {
+        console.log("Attempting to update task", newTodo);
         onSave(newTodo);
         setIsEditing(false);
     };

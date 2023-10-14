@@ -7,7 +7,7 @@ function TodoForm({ onSave }) {
     const [priority, setPriority] = useState('Low');
 
     const handleSave = () => {
-        console.log("Attempting to save todo with data:", { task, description, priority });
+        console.log("Attempting to save task", { task, description, priority });
         if (!task) {
             console.warn("Task field is empty. Aborting save operation.");
             alert("Task field is required!");
