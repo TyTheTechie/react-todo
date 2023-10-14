@@ -1,7 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
-import todoRoutes from './routes/todoRoutes.mjs';
+import taskRoutes from './routes/taskRoutes.mjs';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -11,13 +11,13 @@ app.use(cors());
 app.use(express.json());
 
 // Database Connection
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/todo-app', {
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/task-app', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });
 
 // Routes
-app.use('/api/todos', todoRoutes);
+app.use('/api/tasks', taskRoutes);
 
 // Start the server
 app.listen(PORT, () => {

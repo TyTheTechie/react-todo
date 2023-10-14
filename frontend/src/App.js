@@ -1,7 +1,7 @@
 // src/App.js
 import React, { useContext } from 'react';
 import { ThemeContext } from './context/themeContext';
-import TodoList from './components/TodoList';
+import TodoList from './components/TaskList';
 import LightbulbToggle from './components/LightbulbToggle';
 import 'tailwindcss/tailwind.css';
 

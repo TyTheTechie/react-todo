@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import TodoForm from './TodoForm';
-import TodoItem from './TodoItem';
+import TodoForm from './TaskForm';
+import TodoItem from './TaskItem';
 import { getTodos, createTodo, updateTodo, deleteTodo } from '../services/apiService';
 import 'tailwindcss/tailwind.css';
 
