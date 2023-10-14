@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import 'tailwindcss/tailwind.css';
 
-function TodoForm({ onSave }) {
+function TaskForm({ onSave }) {
     const [task, setTask] = useState('');
     const [description, setDescription] = useState('');
     const [priority, setPriority] = useState('Low');
@@ -51,6 +51,4 @@ function TodoForm({ onSave }) {
     );
 }
 
-
-
-export default TodoForm;
+export default TaskForm;

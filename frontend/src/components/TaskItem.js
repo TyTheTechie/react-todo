@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { Button, ListItem, TextField, Select, MenuItem } from '@mui/material';
 import 'tailwindcss/tailwind.css';
 
-function TodoItem({ todo, onSave, onDelete }) {
+function TaskItem({ task, onSave, onDelete }) {
     const [isEditing, setIsEditing] = useState(false);
-    const [newTodo, setNewTodo] = useState(todo);
+    const [newTask, setNewTask] = useState(task);
 
     const handleSave = () => {
-        console.log("Attempting to update task", newTodo);
-        onSave(newTodo);
+        console.log("Attempting to update task", newTask);
+        onSave(newTask);
         setIsEditing(false);
     };
 
@@ -17,16 +17,16 @@ function TodoItem({ todo, onSave, onDelete }) {
             {isEditing ? (
                 <>
                     <TextField
-                        value={newTodo.task}
-                        onChange={(e) => setNewTodo({ ...newTodo, task: e.target.value })}
+                        value={newTask.task}
+                        onChange={(e) => setNewTask({ ...newTask, task: e.target.value })}
                     />
                     <TextField
-                        value={newTodo.description}
-                        onChange={(e) => setNewTodo({ ...newTodo, description: e.target.value })}
+                        value={newTask.description}
+                        onChange={(e) => setNewTask({ ...newTask, description: e.target.value })}
                     />
                     <Select
-                        value={newTodo.priority}
-                        onChange={(e) => setNewTodo({ ...newTodo, priority: e.target.value })}
+                        value={newTask.priority}
+                        onChange={(e) => setNewTask({ ...newTask, priority: e.target.value })}
                     >
                         <MenuItem>Low</MenuItem>
                         <MenuItem>Medium</MenuItem>
@@ -37,14 +37,14 @@ function TodoItem({ todo, onSave, onDelete }) {
             ) : (
                 <>
                     <div>
-                        <strong>{todo.task}</strong> - {todo.description} (Priority: {todo.priority})
+                        <strong>{task.task}</strong> - {task.description} (Priority: {task.priority})
                     </div>
                     <Button onClick={() => setIsEditing(true)}>Edit</Button>
-                    <Button onClick={() => onDelete(todo._id)}>Delete</Button>
+                    <Button onClick={() => onDelete(task._id)}>Delete</Button>
                 </>
             )}
         </div>
     );
 }
 
-export default TodoItem;
+export default TaskItem;

@@ -1,42 +1,42 @@
 import React, { useEffect, useState } from 'react';
-import TodoForm from './TaskForm';
-import TodoItem from './TaskItem';
-import { getTodos, createTodo, updateTodo, deleteTodo } from '../services/apiService';
+import TaskForm from './TaskForm';
+import TaskItem from './TaskItem';
+import { getTasks, createTask, updateTask, deleteTask } from '../services/apiService';
 import 'tailwindcss/tailwind.css';
 
-function TodoList() {
-    const [todos, setTodos] = useState([]);
+function TaskList() {
+    const [tasks, setTasks] = useState([]);
 
     useEffect(() => {
-        const fetchTodos = async () => {
-            const data = await getTodos();
-            setTodos(data);
+        const fetchTasks = async () => {
+            const data = await getTasks();
+            setTasks(data);
         };
-        fetchTodos();
+        fetchTasks();
     }, []);
 
-    const handleSave = async (todo) => {
-        if (todo._id) {
-            const updatedTodo = await updateTodo(todo._id, todo);
-            setTodos(todos.map(t => (t._id === updatedTodo._id ? updatedTodo : t)));
+    const handleSave = async (task) => {
+        if (task._id) {
+            const updatedTask = await updateTask(task._id, task);
+            setTasks(tasks.map(t => (t._id === updatedTask._id ? updatedTask : t)));
         } else {
-            const newTodo = await createTodo(todo);
-            setTodos([...todos, newTodo]);
+            const newTask = await createTask(task);
+            setTasks([...tasks, newTask]);
         }
     };
 
     const handleDelete = async (id) => {
-        await deleteTodo(id);
-        setTodos(todos.filter(t => t._id !== id));
+        await deleteTask(id);
+        setTasks(tasks.filter(t => t._id !== id));
     };
 
     return (
         <div>
-            <TodoForm onSave={handleSave} />
+            <TaskForm onSave={handleSave} />
             <ul className="list-none">
-                {todos.map(todo => (
-                    <li className="mb-4" key={todo._id}>
-                        <TodoItem todo={todo} onSave={handleSave} onDelete={handleDelete} />
+                {tasks.map(task => (
+                    <li className="mb-4" key={task._id}>
+                        <TaskItem task={task} onSave={handleSave} onDelete={handleDelete} />
                     </li>
                 ))}
             </ul>
@@ -44,4 +44,4 @@ function TodoList() {
     );
 }
 
-export default TodoList;
+export default TaskList;
