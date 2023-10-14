@@ -8,9 +8,9 @@ function TaskForm({ onSave }) {
 
     const handleSave = () => {
         console.log("Attempting to save task", { task, description, priority });
-        if (!task) {
-            console.warn("Task field is empty. Aborting save operation.");
-            alert("Task field is required!");
+        if (!task || !description) {
+            console.warn("Task or Description field is empty. Aborting save operation.");
+            alert("Both Task and Description fields are required!");
             return;
         }
         onSave({ task, description, priority });
