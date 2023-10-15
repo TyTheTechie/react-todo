@@ -72,7 +72,8 @@ function TaskItem({ task, onSave, onDelete }) {
                     </div>
                     <div>
                         <button onClick={() => setIsEditing(true)} className="bg-blue-500 text-white px-2 py-1 rounded mr-2">Edit</button>
-                        <button onClick={() => onDelete(task.id)} className="bg-red-500 text-white px-2 py-1 rounded">Delete</button>
+                        <button onClick={() => onDelete(task._id)} className="bg-red-500 text-white px-2 py-1 rounded">Delete</button>
+
                     </div>
                 </div>
             )}
