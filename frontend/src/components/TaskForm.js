@@ -36,7 +36,7 @@ function TaskForm({ onSave }) {
                         value={task}
                         onChange={(e) => setTask(e.target.value)}
                         placeholder="Task"
-                        className={`px-3 py-2 border ${errors.task ? 'border-red-500' : 'border-gray-600'} bg-gray-400 rounded-md w-full`}
+                        className={`px-3 py-2 border ${errors.task ? 'border-red-500' : 'border-gray-600'} bg-gray-400 text-black placeholder-black rounded-md w-full`}
                     />
                 </div>
                 
@@ -47,15 +47,15 @@ function TaskForm({ onSave }) {
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         placeholder="Description"
-                        className={`px-3 py-2 border ${errors.description ? 'border-red-500' : 'border-gray-600'} bg-gray-400 rounded-md w-full`}
+                        className={`px-3 py-2 border ${errors.description ? 'border-red-500' : 'border-gray-600'} bg-gray-400 text-black placeholder-black rounded-md w-full`}
                     />
-                </div>
+                </div> {/* This is the missing closing tag */}
 
                 <div className="flex flex-col w-full md:w-auto">
                     <select
                         value={priority}
                         onChange={(e) => setPriority(e.target.value)}
-                        className={`px-3 py-2 border ${errors.priority ? 'border-red-500' : 'border-gray-600'} bg-gray-400 rounded-md w-full`}
+                        className={`px-3 py-2 border ${errors.priority ? 'border-red-500' : 'border-gray-600'} bg-gray-400 text-black rounded-md w-full`}
                         style={{ height: '42px' }}
                     >
                         <option value="Low">Low</option>
