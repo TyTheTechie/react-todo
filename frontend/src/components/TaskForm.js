@@ -49,7 +49,7 @@ function TaskForm({ onSave }) {
                         placeholder="Description"
                         className={`px-3 py-2 border ${errors.description ? 'border-red-500' : 'border-gray-600'} bg-gray-400 text-black placeholder-black rounded-md w-full`}
                     />
-                </div> {/* This is the missing closing tag */}
+                </div>
 
                 <div className="flex flex-col w-full md:w-auto">
                     <select

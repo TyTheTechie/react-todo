@@ -13,7 +13,14 @@ module.exports = {
         'light-secondary': '#3700B3',
         'light-background': '#FFFFFF',
         'light-surface': '#FFFFFF',
+        'expanded-bg': '#E5E7EB',  // Light gray background for expanded task
       },
+      padding: {
+        'expanded': '1.5rem',  // Increased padding for expanded task
+      },
+      boxShadow: {
+        'expanded': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',  // Slight shadow for expanded task
+      }
     },
   },
   plugins: [],

@@ -21,7 +21,7 @@ function TaskItem({ task, onSave, onDelete }) {
     };
 
     return (
-        <div className="bg-gray-400 p-4 rounded shadow">
+        <div className={`bg-gray-400 p-4 rounded shadow ${isEditing ? 'bg-expanded-bg p-expanded shadow-expanded' : ''}`}>
             {isEditing ? (
                 <div className="flex flex-wrap space-x-2">
                     <div className="flex flex-col w-full md:w-1/3 mb-2 md:mb-0">
@@ -60,9 +60,9 @@ function TaskItem({ task, onSave, onDelete }) {
                     </div>
                     
                     <div className="flex flex-col w-full md:w-auto justify-center">
-                    <button onClick={handleSave} className="px-4 py-2 bg-blue-500 text-white rounded-md w-full" style={{ height: '42px' }}>
-                        Save
-                    </button>
+                        <button onClick={handleSave} className="px-4 py-2 bg-blue-500 text-white rounded-md w-full" style={{ height: '42px' }}>
+                            Save
+                        </button>
                     </div>
                 </div>
             ) : (
