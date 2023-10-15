@@ -15,8 +15,10 @@ const useFetchTasks = () => {
                 const data = await getTasks();
                 setTasks(data);
                 setIsLoading(false);
+                setError(null);  // Clear any previous errors
             } catch (err) {
                 setError('Failed to fetch tasks. Please try again.');
+                setTimeout(() => setError(null), 5000);
                 setIsLoading(false);
             }
         };
@@ -38,8 +40,10 @@ function TaskList() {
                 const newTask = await createTask(task);
                 setTasks(prevTasks => [...prevTasks, newTask]);
             }
+            setError(null);  // Clear any previous errors
         } catch (err) {
             setError('Failed to save task. Please try again.');
+            setTimeout(() => setError(null), 5000);
         }
     };
 
@@ -47,8 +51,10 @@ function TaskList() {
         try {
             await deleteTask(id);
             setTasks(prevTasks => prevTasks.filter(t => t._id !== id));
+            setError(null);  // Clear any previous errors
         } catch (err) {
             setError('Failed to delete task. Please try again.');
+            setTimeout(() => setError(null), 5000);
         }
     };
 
