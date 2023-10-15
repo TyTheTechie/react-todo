@@ -21,7 +21,7 @@ function TaskItem({ task, onSave, onDelete }) {
     };
 
     return (
-        <div className="bg-white p-4 rounded shadow">
+        <div className="bg-gray-400 p-4 rounded shadow">
             {isEditing ? (
                 <div className="flex flex-wrap space-x-2 items-center">
                     <div className="flex flex-col w-full md:w-1/3 mb-2 md:mb-0">
@@ -65,19 +65,19 @@ function TaskItem({ task, onSave, onDelete }) {
                         </button>
                     </div>
                 </div>
-            ) : (
-                <div className="flex justify-between items-center">
-                    <div>
-                        <strong>{task.task}</strong> - {task.description} - {task.priority}
-                    </div>
-                    <div>
-                        <button onClick={() => setIsEditing(true)} className="bg-blue-500 text-white px-2 py-1 rounded mr-2">Edit</button>
-                        <button onClick={() => onDelete(task.id)} className="bg-red-500 text-white px-2 py-1 rounded">Delete</button>
-                    </div>
+           ) : (
+            <div className="flex justify-between items-center">
+                <div>
+                    <strong>{task.task}</strong> - {task.description} - {task.priority}
                 </div>
-            )}
-        </div>
-    );
+                <div>
+                    <button onClick={() => setIsEditing(true)} className="bg-blue-500 text-white px-2 py-1 rounded mr-2">Edit</button>
+                    <button onClick={() => onDelete(task.id)} className="bg-red-500 text-white px-2 py-1 rounded">Delete</button>
+                </div>
+            </div>
+        )}
+    </div>
+);
 }
 
 export default TaskItem;
