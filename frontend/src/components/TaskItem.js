@@ -23,7 +23,7 @@ function TaskItem({ task, onSave, onDelete }) {
     return (
         <div className="bg-gray-400 p-4 rounded shadow">
             {isEditing ? (
-                <div className="flex flex-wrap space-x-2 items-center">
+                <div className="flex flex-wrap space-x-2">
                     <div className="flex flex-col w-full md:w-1/3 mb-2 md:mb-0">
                         {errors.task && <p className="text-red-500 text-xs mb-1">{errors.task}</p>}
                         <input
@@ -59,25 +59,25 @@ function TaskItem({ task, onSave, onDelete }) {
                         </select>
                     </div>
                     
-                    <div className="flex flex-col w-full md:w-1/6 justify-center">
-                        <button onClick={handleSave} className="px-4 py-2 bg-blue-500 text-white rounded-md w-full" style={{ height: '42px' }}>
-                            Save
-                        </button>
+                    <div className="flex flex-col w-full md:w-auto justify-center">
+                    <button onClick={handleSave} className="px-4 py-2 bg-blue-500 text-white rounded-md w-full" style={{ height: '42px' }}>
+                        Save
+                    </button>
                     </div>
                 </div>
-           ) : (
-            <div className="flex justify-between items-center">
-                <div>
-                    <strong>{task.task}</strong> - {task.description} - {task.priority}
+            ) : (
+                <div className="flex justify-between items-center">
+                    <div>
+                        <strong>{task.task}</strong> - {task.description} - {task.priority}
+                    </div>
+                    <div>
+                        <button onClick={() => setIsEditing(true)} className="bg-blue-500 text-white px-2 py-1 rounded mr-2">Edit</button>
+                        <button onClick={() => onDelete(task.id)} className="bg-red-500 text-white px-2 py-1 rounded">Delete</button>
+                    </div>
                 </div>
-                <div>
-                    <button onClick={() => setIsEditing(true)} className="bg-blue-500 text-white px-2 py-1 rounded mr-2">Edit</button>
-                    <button onClick={() => onDelete(task.id)} className="bg-red-500 text-white px-2 py-1 rounded">Delete</button>
-                </div>
-            </div>
-        )}
-    </div>
-);
+            )}
+        </div>
+    );
 }
 
 export default TaskItem;
