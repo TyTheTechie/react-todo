@@ -60,7 +60,7 @@ function TaskForm({ onSave }) {
                     <select
                         value={priority}
                         onChange={(e) => setPriority(e.target.value)}
-                        className={`px-3 py-2 border ${errors.priority ? 'border-red-500' : 'border-gray-300'} rounded-md w-full`}
+                        className={`px-3 py-2 border ${errors.priority ? 'border-red-500' : 'border-gray-300'} rounded-md w-full h-10`} 
                     >
                         <option>Low</option>
                         <option>Medium</option>
@@ -68,7 +68,7 @@ function TaskForm({ onSave }) {
                     </select>
                 </div>
                 
-                <button onClick={handleSave} className="px-4 py-2 bg-blue-500 text-white rounded-md w-full md:w-auto">
+                <button onClick={handleSave} className="px-4 py-2 bg-blue-500 text-white rounded-md w-full md:w-auto h-10">
                     Save
                 </button>
             </div>
