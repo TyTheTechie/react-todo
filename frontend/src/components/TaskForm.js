@@ -23,6 +23,7 @@ function TaskForm({ onSave }) {
         setTask('');
         setDescription('');
         setPriority('Low');
+        setErrors({});  // Clearing the errors after successful submission
     };
 
     return (
