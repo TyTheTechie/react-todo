@@ -23,11 +23,11 @@ const useFetchTasks = () => {
         fetchTasks();
     }, []);
 
-    return { tasks, isLoading, error, setTasks };
+    return { tasks, isLoading, error, setTasks, setError };
 };
 
 function TaskList() {
-    const { tasks, isLoading, error, setTasks } = useFetchTasks();
+    const { tasks, isLoading, error, setTasks, setError } = useFetchTasks();
 
     const handleTaskSave = async (task) => {
         try {
