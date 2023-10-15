@@ -49,11 +49,11 @@ function TaskItem({ task, onSave, onDelete }) {
                         />
                     </div>
                     
-                    <div className="flex flex-col">
+                    <div className="flex flex-col flex-grow">
                         <Select
                             value={priorityValue}
                             onChange={(e) => setNewTask({ ...newTask, priority: e.target.value })}
-                            style={{ minWidth: '120px' }}
+                            fullWidth
                         >
                             <MenuItem value="Low">Low</MenuItem>
                             <MenuItem value="Medium">Medium</MenuItem>
