@@ -1,9 +1,9 @@
 import React, { useState, useContext } from 'react';
-import { useTasks } from '../context/TaskContext';
+import { TaskContext } from '../context/TaskContext';
 import 'tailwindcss/tailwind.css';
 
 function TaskForm({ onSave }) {
-    const { tasks, setTasks } = useContext(useTasks);
+    const { tasks, setTasks } = useContext(TaskContext);
     const [task, setTask] = useState('');
     const [description, setDescription] = useState('');
     const [priority, setPriority] = useState('Low');
