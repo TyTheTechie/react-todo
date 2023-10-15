@@ -36,36 +36,36 @@ function TaskForm({ onSave }) {
                         value={task}
                         onChange={(e) => setTask(e.target.value)}
                         placeholder="Task"
-                        className={`px-3 py-2 border ${errors.task ? 'border-red-500' : 'border-gray-300'} rounded-md w-full`}
+                        className={`px-3 py-2 border ${errors.task ? 'border-red-500' : 'border-gray-600'} bg-gray-400 rounded-md w-full`}
                     />
                 </div>
                 
                 <div className="flex flex-col w-full md:w-auto">
-                    {errors.description && <p className="text-red-500 text-xs">{errors.description}</p>}
+                    {errors.description && <p className="text-red-500 text-xs mb-1">{errors.description}</p>}
                     <input
                         type="text"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         placeholder="Description"
-                        className={`px-3 py-2 border ${errors.description ? 'border-red-500' : 'border-gray-300'} rounded-md w-full`}
+                        className={`px-3 py-2 border ${errors.description ? 'border-red-500' : 'border-gray-600'} bg-gray-400 rounded-md w-full`}
                     />
                 </div>
-                
+
                 <div className="flex flex-col w-full md:w-auto">
                     <select
                         value={priority}
                         onChange={(e) => setPriority(e.target.value)}
-                        className={`px-3 py-2 border ${errors.priority ? 'border-red-500' : 'border-gray-300'} rounded-md w-full`}
+                        className={`px-3 py-2 border ${errors.priority ? 'border-red-500' : 'border-gray-600'} bg-gray-400 rounded-md w-full`}
                         style={{ height: '42px' }}
                     >
-                        <option>Low</option>
-                        <option>Medium</option>
-                        <option>High</option>
+                        <option value="Low">Low</option>
+                        <option value="Medium">Medium</option>
+                        <option value="High">High</option>
                     </select>
                 </div>
                 
-                <div className="flex flex-col w-full md:w-auto">
-                    <button onClick={handleSave} className="px-4 py-2 bg-blue-500 text-white rounded-md w-full md:w-auto" style={{ height: '42px' }}>
+                <div className="flex flex-col w-full md:w-auto justify-center">
+                    <button onClick={handleSave} className="px-4 py-2 bg-blue-500 text-white rounded-md w-full" style={{ height: '42px' }}>
                         Save
                     </button>
                 </div>

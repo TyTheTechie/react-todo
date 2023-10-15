@@ -31,7 +31,7 @@ function TaskItem({ task, onSave, onDelete }) {
                             value={newTask.task}
                             onChange={(e) => setNewTask({ ...newTask, task: e.target.value })}
                             placeholder="Task"
-                            className={`px-3 py-2 border ${errors.task ? 'border-red-500' : 'border-gray-300'} rounded-md w-full`}
+                            className={`px-3 py-2 border ${errors.task ? 'border-red-500' : 'border-gray-600'} bg-gray-400 rounded-md w-full`}
                         />
                     </div>
                     
@@ -42,7 +42,7 @@ function TaskItem({ task, onSave, onDelete }) {
                             value={newTask.description}
                             onChange={(e) => setNewTask({ ...newTask, description: e.target.value })}
                             placeholder="Description"
-                            className={`px-3 py-2 border ${errors.description ? 'border-red-500' : 'border-gray-300'} rounded-md w-full`}
+                            className={`px-3 py-2 border ${errors.description ? 'border-red-500' : 'border-gray-600'} bg-gray-400 rounded-md w-full`}
                         />
                     </div>
 
@@ -50,7 +50,7 @@ function TaskItem({ task, onSave, onDelete }) {
                         <select
                             value={newTask.priority}
                             onChange={(e) => setNewTask({ ...newTask, priority: e.target.value })}
-                            className={`px-3 py-2 border ${errors.priority ? 'border-red-500' : 'border-gray-300'} rounded-md w-full`}
+                            className={`px-3 py-2 border ${errors.priority ? 'border-red-500' : 'border-gray-600'} bg-gray-400 rounded-md w-full`}
                             style={{ height: '42px' }}
                         >
                             <option value="Low">Low</option>
@@ -59,7 +59,7 @@ function TaskItem({ task, onSave, onDelete }) {
                         </select>
                     </div>
                     
-                    <div className="flex flex-col w-full md:w-auto">
+                    <div className="flex flex-col w-full md:w-1/6 justify-center">
                         <button onClick={handleSave} className="px-4 py-2 bg-blue-500 text-white rounded-md w-full" style={{ height: '42px' }}>
                             Save
                         </button>
