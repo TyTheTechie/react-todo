@@ -28,7 +28,7 @@ function TaskForm({ onSave }) {
 
     return (
         <div className="mb-4">
-            <div className="flex flex-wrap space-y-2 md:space-y-0 md:space-x-2">
+            <div className="flex flex-wrap space-y-2 md:space-y-0 md:space-x-2 items-start"> {/* Adjusted to items-start */}
                 <div className="flex flex-col w-full md:w-auto">
                     <div className="h-5">
                         {errors.task && <p className="text-red-500 text-xs">{errors.task}</p>}
@@ -60,7 +60,8 @@ function TaskForm({ onSave }) {
                     <select
                         value={priority}
                         onChange={(e) => setPriority(e.target.value)}
-                        className={`px-3 py-2 border ${errors.priority ? 'border-red-500' : 'border-gray-300'} rounded-md w-full h-10`} 
+                        className={`px-3 py-2 border ${errors.priority ? 'border-red-500' : 'border-gray-300'} rounded-md w-full`}
+                        style={{ height: '42px' }}
                     >
                         <option>Low</option>
                         <option>Medium</option>
@@ -68,7 +69,7 @@ function TaskForm({ onSave }) {
                     </select>
                 </div>
                 
-                <button onClick={handleSave} className="px-4 py-2 bg-blue-500 text-white rounded-md w-full md:w-auto h-10">
+                <button onClick={handleSave} className="px-4 py-2 bg-blue-500 text-white rounded-md w-full md:w-auto" style={{ height: '42px' }}>
                     Save
                 </button>
             </div>
