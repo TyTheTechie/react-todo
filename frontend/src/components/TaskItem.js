@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Button, ListItem, TextField, Select, MenuItem } from '@mui/material';
 import 'tailwindcss/tailwind.css';
 
 function TaskItem({ task, onSave, onDelete }) {
@@ -30,38 +29,44 @@ function TaskItem({ task, onSave, onDelete }) {
             {isEditing ? (
                 <div className="flex space-x-2">
                     <div className="flex flex-col flex-grow">
-                        {errors.task && <p className="text-red-500 text-xs">{errors.task}</p>}
-                        <TextField
+                        {errors.task && <p className="text-red-500 text-xs mb-1">{errors.task}</p>}
+                        <input
+                            type="text"
                             value={newTask.task}
                             onChange={(e) => setNewTask({ ...newTask, task: e.target.value })}
-                            className={errors.task ? 'border-red-500' : ''}
-                            fullWidth
+                            placeholder="Task"
+                            className={`px-3 py-2 border ${errors.task ? 'border-red-500' : 'border-gray-300'} rounded-md w-full`}
                         />
                     </div>
                     
                     <div className="flex flex-col flex-grow">
-                        {errors.description && <p className="text-red-500 text-xs">{errors.description}</p>}
-                        <TextField
+                        {errors.description && <p className="text-red-500 text-xs mb-1">{errors.description}</p>}
+                        <input
+                            type="text"
                             value={newTask.description}
                             onChange={(e) => setNewTask({ ...newTask, description: e.target.value })}
-                            className={errors.description ? 'border-red-500' : ''}
-                            fullWidth
+                            placeholder="Description"
+                            className={`px-3 py-2 border ${errors.description ? 'border-red-500' : 'border-gray-300'} rounded-md w-full`}
                         />
                     </div>
                     
                     <div className="flex flex-col">
-                        <Select
+                        <select
                             value={priorityValue}
                             onChange={(e) => setNewTask({ ...newTask, priority: e.target.value })}
-                            style={{ minWidth: '120px' }}
+                            className={`px-3 py-2 border ${errors.priority ? 'border-red-500' : 'border-gray-300'} rounded-md w-full`}
                         >
-                            <MenuItem value="Low">Low</MenuItem>
-                            <MenuItem value="Medium">Medium</MenuItem>
-                            <MenuItem value="High">High</MenuItem>
-                        </Select>
+                            <option value="Low">Low</option>
+                            <option value="Medium">Medium</option>
+                            <option value="High">High</option>
+                        </select>
                     </div>
                     
-                    <Button onClick={handleSave} style={{ minWidth: '80px' }}>Save</Button>
+                    <div className="flex flex-col justify-center">
+                        <button onClick={handleSave} className="px-4 py-2 bg-blue-500 text-white rounded-md">
+                            Save
+                        </button>
+                    </div>
                 </div>
             ) : (
                 <div className="flex items-center justify-between">
@@ -69,8 +74,12 @@ function TaskItem({ task, onSave, onDelete }) {
                         <strong>{task.task}</strong> - {task.description} (Priority: {task.priority})
                     </div>
                     <div>
-                        <Button onClick={() => setIsEditing(true)}>Edit</Button>
-                        <Button onClick={() => onDelete(task._id)}>Delete</Button>
+                        <button onClick={() => setIsEditing(true)} className="px-4 py-2 bg-blue-500 text-white rounded-md mr-2">
+                            Edit
+                        </button>
+                        <button onClick={() => onDelete(task._id)} className="px-4 py-2 bg-red-500 text-white rounded-md">
+                            Delete
+                        </button>
                     </div>
                 </div>
             )}
