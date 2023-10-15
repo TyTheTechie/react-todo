@@ -1,67 +1,60 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useContext } from 'react';
 import TaskForm from './TaskForm';
 import TaskItem from './TaskItem';
 import { getTasks, createTask, updateTask, deleteTask } from '../services/apiService';
+import { TaskContext } from '../context/TaskContext';
 import 'tailwindcss/tailwind.css';
 
 const useFetchTasks = () => {
-    const [tasks, setTasks] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const { state, dispatch } = useContext(TaskContext);
 
     useEffect(() => {
         const fetchTasks = async () => {
             try {
                 const data = await getTasks();
-                setTasks(data);
-                setIsLoading(false);
-                setError(null);  // Clear any previous errors
+                dispatch({ type: 'SET_TASKS', payload: data });
             } catch (err) {
-                setError('Failed to fetch tasks. Please try again.');
-                setTimeout(() => setError(null), 5000);
-                setIsLoading(false);
+                dispatch({ type: 'SET_ERROR', payload: 'Failed to fetch tasks. Please try again.' });
             }
         };
         fetchTasks();
-    }, []);
+    }, [dispatch]);
 
-    return { tasks, isLoading, error, setTasks, setError };
+    return { tasks: state.tasks, error: state.error, dispatch };
 };
 
 function TaskList() {
-    const { tasks, isLoading, error, setTasks, setError } = useFetchTasks();
+    const { tasks, error, dispatch } = useFetchTasks();
 
     const handleTaskSave = async (task) => {
         try {
             if (task._id) {
                 const updatedTask = await updateTask(task._id, task);
-                setTasks(prevTasks => prevTasks.map(t => (t._id === updatedTask._id ? updatedTask : t)));
+                dispatch({ type: 'UPDATE_TASK', payload: updatedTask });
             } else {
                 const newTask = await createTask(task);
-                setTasks(prevTasks => [...prevTasks, newTask]);
+                dispatch({ type: 'ADD_TASK', payload: newTask });
             }
-            setError(null);  // Clear any previous errors
+            dispatch({ type: 'SET_ERROR', payload: null });  // Clear any previous errors
         } catch (err) {
-            setError('Failed to save task. Please try again.');
-            setTimeout(() => setError(null), 5000);
+            dispatch({ type: 'SET_ERROR', payload: 'Failed to save task. Please try again.' });
         }
     };
 
     const handleTaskDelete = async (id) => {
         try {
             await deleteTask(id);
-            setTasks(prevTasks => prevTasks.filter(t => t._id !== id));
-            setError(null);  // Clear any previous errors
+            dispatch({ type: 'DELETE_TASK', payload: id });
+            dispatch({ type: 'SET_ERROR', payload: null });  // Clear any previous errors
         } catch (err) {
-            setError('Failed to delete task. Please try again.');
-            setTimeout(() => setError(null), 5000);
+            dispatch({ type: 'SET_ERROR', payload: 'Failed to delete task. Please try again.' });
         }
     };
 
     return (
         <div>
             {error && <p className="text-red-500">{error}</p>}
-            {isLoading ? (
+            {!tasks.length ? (
                 <p>Loading tasks...</p>
             ) : (
                 <>

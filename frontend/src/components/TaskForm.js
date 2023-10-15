@@ -3,7 +3,7 @@ import { TaskContext } from '../context/TaskContext';
 import 'tailwindcss/tailwind.css';
 
 function TaskForm({ onSave }) {
-    const { tasks, setTasks } = useContext(TaskContext);
+    const { state, dispatch } = useContext(TaskContext);
     const [task, setTask] = useState('');
     const [description, setDescription] = useState('');
     const [priority, setPriority] = useState('Low');
@@ -22,7 +22,7 @@ function TaskForm({ onSave }) {
         }
 
         const newTask = { task, description, priority };
-        setTasks([...tasks, newTask]);
+        dispatch({ type: 'ADD_TASK', payload: newTask });
         onSave(newTask);
         setTask('');
         setDescription('');
