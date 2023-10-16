@@ -1,9 +1,11 @@
 import React, { useState, useContext } from 'react';
 import { TaskContext } from '../context/TaskContext';
+import { ThemeContext } from '../context/themeContext';
 import 'tailwindcss/tailwind.css';
 
 function TaskForm({ onSave }) {
     const { state, dispatch } = useContext(TaskContext);
+    const { darkMode } = useContext(ThemeContext);
     const [task, setTask] = useState('');
     const [description, setDescription] = useState('');
     const [priority, setPriority] = useState('Low');
@@ -30,6 +32,8 @@ function TaskForm({ onSave }) {
         setErrors({});  // Clearing the errors after successful submission
     };
 
+    const inputBgColor = darkMode ? 'bg-gray-400' : 'bg-white';
+
     return (
         <div className="mb-4">
             <div className="flex flex-wrap space-y-2 md:space-y-0 md:space-x-2 items-end">
@@ -40,7 +44,7 @@ function TaskForm({ onSave }) {
                         value={task}
                         onChange={(e) => setTask(e.target.value)}
                         placeholder="Task"
-                        className={`px-3 py-2 border ${errors.task ? 'border-red-500' : 'border-gray-600'} bg-gray-400 text-black placeholder-black rounded-md w-full`}
+                        className={`px-3 py-2 border ${errors.task ? 'border-red-500' : 'border-gray-600'} ${inputBgColor} text-black placeholder-black rounded-md w-full`}
                     />
                 </div>
                 
@@ -51,7 +55,7 @@ function TaskForm({ onSave }) {
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         placeholder="Description"
-                        className={`px-3 py-2 border ${errors.description ? 'border-red-500' : 'border-gray-600'} bg-gray-400 text-black placeholder-black rounded-md w-full`}
+                        className={`px-3 py-2 border ${errors.description ? 'border-red-500' : 'border-gray-600'} ${inputBgColor} text-black placeholder-black rounded-md w-full`}
                     />
                 </div>
 
@@ -59,7 +63,7 @@ function TaskForm({ onSave }) {
                     <select
                         value={priority}
                         onChange={(e) => setPriority(e.target.value)}
-                        className={`px-3 py-2 border ${errors.priority ? 'border-red-500' : 'border-gray-600'} bg-gray-400 text-black rounded-md w-full`}
+                        className={`px-3 py-2 border ${errors.priority ? 'border-red-500' : 'border-gray-600'} ${inputBgColor} text-black rounded-md w-full`}
                         style={{ height: '42px' }}
                     >
                         <option value="Low">Low</option>
