@@ -70,19 +70,21 @@ function TaskItem({ task, onSave, onDelete }) {
                         </button>
                     </div>
                 </div>
-            ) : (
-                <div className="flex justify-between items-center">
-                    <div>
-                        <strong>{task.task}</strong> - {task.description} - {task.priority}
-                    </div>
-                    <div>
-                        <button onClick={() => setIsEditing(true)} className="bg-blue-500 text-white px-2 py-1 rounded mr-2">Edit</button>
-                        <button onClick={() => onDelete(task._id)} className="bg-red-500 text-white px-2 py-1 rounded">Delete</button>
-                    </div>
+           ) : (
+            <div className="flex justify-between items-center">
+                <div>
+                    <strong>{task.task}</strong> - {task.description} - {task.priority}
+                    {task.dueDate && <span> | Due: {new Date(task.dueDate).toLocaleDateString()}</span>}
+                    {task.goalDate && <span> | Goal: {new Date(task.goalDate).toLocaleDateString()}</span>}
                 </div>
-            )}
-        </div>
-    );
+                <div>
+                    <button onClick={() => setIsEditing(true)} className="bg-blue-500 text-white px-2 py-1 rounded mr-2">Edit</button>
+                    <button onClick={() => onDelete(task._id)} className="bg-red-500 text-white px-2 py-1 rounded">Delete</button>
+                </div>
+            </div>
+        )}
+    </div>
+);
 }
 
 export default TaskItem;

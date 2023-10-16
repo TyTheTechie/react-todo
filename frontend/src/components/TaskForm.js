@@ -1,6 +1,8 @@
 import React, { useState, useContext } from 'react';
 import { TaskContext } from '../context/TaskContext';
 import { ThemeContext } from '../context/themeContext';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import 'tailwindcss/tailwind.css';
 
 function TaskForm({ onSave }) {
@@ -10,6 +12,8 @@ function TaskForm({ onSave }) {
     const [description, setDescription] = useState('');
     const [priority, setPriority] = useState('Low');
     const [errors, setErrors] = useState({});
+    const [dueDate, setDueDate] = useState(null);
+    const [goalDate, setGoalDate] = useState(null);
 
     const handleSave = () => {
         console.log("Attempting to save task", { task, description, priority });
@@ -23,12 +27,14 @@ function TaskForm({ onSave }) {
             return;
         }
 
-        const newTask = { task, description, priority };
-        onSave(newTask); // Only call the onSave callback, no dispatch here
+        const newTask = { task, description, priority, dueDate, goalDate };
+        onSave(newTask);
         setTask('');
         setDescription('');
         setPriority('Low');
         setErrors({}); 
+        setDueDate(null);
+        setGoalDate(null);
     };
 
     const inputBgColor = darkMode ? 'bg-gray-400' : 'bg-white';
@@ -46,7 +52,7 @@ function TaskForm({ onSave }) {
                         className={`px-3 py-2 border ${errors.task ? 'border-red-500' : 'border-gray-600'} ${inputBgColor} text-black placeholder-black rounded-md w-full`}
                     />
                 </div>
-                
+
                 <div className="flex flex-col w-full md:w-auto">
                     {errors.description && <p className="text-red-500 text-xs mb-1">{errors.description}</p>}
                     <input
@@ -70,7 +76,27 @@ function TaskForm({ onSave }) {
                         <option value="High">High</option>
                     </select>
                 </div>
+
+                <div className="flex flex-col w-full md:w-auto">
+                    <DatePicker
+                        selected={dueDate}
+                        onChange={date => setDueDate(date)}
+                        placeholderText="Due Date"
+                        dateFormat="MM/dd/yyyy"
+                        className={`px-3 py-2 border ${inputBgColor} text-black placeholder-black rounded-md w-full`}
+                    />
+                </div>
                 
+                <div className="flex flex-col w-full md:w-auto">
+                    <DatePicker
+                        selected={goalDate}
+                        onChange={date => setGoalDate(date)}
+                        placeholderText="Goal Date"
+                        dateFormat="MM/dd/yyyy"
+                        className={`px-3 py-2 border ${inputBgColor} text-black placeholder-black rounded-md w-full`}
+                    />
+                </div>
+
                 <div className="flex flex-col w-full md:w-auto justify-center">
                     <button onClick={handleSave} className="px-4 py-2 bg-blue-500 text-white rounded-md w-full" style={{ height: '42px' }}>
                         Save
