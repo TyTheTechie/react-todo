@@ -24,8 +24,7 @@ function TaskForm({ onSave }) {
         }
 
         const newTask = { task, description, priority };
-        dispatch({ type: 'ADD_TASK', payload: newTask });
-        onSave(newTask);
+        onSave(newTask); // Only call the onSave callback, no dispatch here
         setTask('');
         setDescription('');
         setPriority('Low');
