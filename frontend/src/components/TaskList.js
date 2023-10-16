@@ -3,6 +3,7 @@ import TaskForm from './TaskForm';
 import TaskItem from './TaskItem';
 import { getTasks, createTask, updateTask, deleteTask } from '../services/apiService';
 import { TaskContext } from '../context/TaskContext';
+import { ThemeContext } from '../context/themeContext';
 import 'tailwindcss/tailwind.css';
 
 const useFetchTasks = () => {
@@ -25,6 +26,7 @@ const useFetchTasks = () => {
 
 function TaskList() {
     const { tasks, error, dispatch } = useFetchTasks();
+    const { darkMode } = useContext(ThemeContext);
 
     const handleTaskSave = async (task) => {
         try {
@@ -35,7 +37,7 @@ function TaskList() {
                 const newTask = await createTask(task);
                 dispatch({ type: 'ADD_TASK', payload: newTask });
             }
-            dispatch({ type: 'SET_ERROR', payload: null });  // Clear any previous errors
+            dispatch({ type: 'SET_ERROR', payload: null });  
         } catch (err) {
             dispatch({ type: 'SET_ERROR', payload: 'Failed to save task. Please try again.' });
         }
@@ -45,7 +47,7 @@ function TaskList() {
         try {
             await deleteTask(id);
             dispatch({ type: 'DELETE_TASK', payload: id });
-            dispatch({ type: 'SET_ERROR', payload: null });  // Clear any previous errors
+            dispatch({ type: 'SET_ERROR', payload: null });  
         } catch (err) {
             dispatch({ type: 'SET_ERROR', payload: 'Failed to delete task. Please try again.' });
         }
@@ -56,7 +58,7 @@ function TaskList() {
             {error && <p className="text-red-500">{error}</p>}
             <TaskForm onSave={handleTaskSave} />
             {!tasks.length ? (
-                <p>Loading tasks...</p>
+                <p className={darkMode ?  "text-light-primary" : "text-black"}>Loading tasks...</p>
             ) : (
                 <ul className="list-none">
                     {tasks.map(task => (

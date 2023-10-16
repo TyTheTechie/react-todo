@@ -29,7 +29,7 @@ function TaskForm({ onSave }) {
         setTask('');
         setDescription('');
         setPriority('Low');
-        setErrors({});  // Clearing the errors after successful submission
+        setErrors({}); 
     };
 
     const inputBgColor = darkMode ? 'bg-gray-400' : 'bg-white';
