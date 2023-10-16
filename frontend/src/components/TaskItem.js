@@ -6,18 +6,19 @@ function TaskItem({ task, onSave, onDelete }) {
     const { darkMode } = useContext(ThemeContext);
     const [isEditing, setIsEditing] = useState(false);
     const [editedTask, setEditedTask] = useState(task);
-    
+    const [errors, setErrors] = useState({});
+
     const handleSave = () => {
         let errorObj = {};
-        if (!newTask.task) errorObj.task = "Task is required!";
-        if (!newTask.description) errorObj.description = "Description is required!";
+        if (!editedTask.task) errorObj.task = "Task is required!";
+        if (!editedTask.description) errorObj.description = "Description is required!";
         
         if (Object.keys(errorObj).length) {
             setErrors(errorObj);
             return;
         }
 
-        onSave(newTask);
+        onSave(editedTask);
         setIsEditing(false);
     };
 
@@ -32,8 +33,8 @@ function TaskItem({ task, onSave, onDelete }) {
                         {errors.task && <p className="text-red-500 text-xs mb-1">{errors.task}</p>}
                         <input
                             type="text"
-                            value={newTask.task}
-                            onChange={(e) => setNewTask({ ...newTask, task: e.target.value })}
+                            value={editedTask.task}
+                            onChange={(e) => setEditedTask({ ...editedTask, task: e.target.value })}
                             placeholder="Task"
                             className={`px-3 py-2 border ${errors.task ? 'border-red-500' : 'border-gray-600'} ${inputBgColor} rounded-md w-full`}
                         />
@@ -43,8 +44,8 @@ function TaskItem({ task, onSave, onDelete }) {
                         {errors.description && <p className="text-red-500 text-xs mb-1">{errors.description}</p>}
                         <input
                             type="text"
-                            value={newTask.description}
-                            onChange={(e) => setNewTask({ ...newTask, description: e.target.value })}
+                            value={editedTask.description}
+                            onChange={(e) => setEditedTask({ ...editedTask, description: e.target.value })}
                             placeholder="Description"
                             className={`px-3 py-2 border ${errors.description ? 'border-red-500' : 'border-gray-600'} ${inputBgColor} rounded-md w-full`}
                         />
@@ -52,8 +53,8 @@ function TaskItem({ task, onSave, onDelete }) {
 
                     <div className="flex flex-col w-full md:w-1/6 mb-2 md:mb-0">
                         <select
-                            value={newTask.priority}
-                            onChange={(e) => setNewTask({ ...newTask, priority: e.target.value })}
+                            value={editedTask.priority}
+                            onChange={(e) => setEditedTask({ ...editedTask, priority: e.target.value })}
                             className={`px-3 py-2 border ${errors.priority ? 'border-red-500' : 'border-gray-600'} ${inputBgColor} rounded-md w-full`}
                             style={{ height: '42px' }}
                         >

@@ -53,23 +53,27 @@ function TaskList() {
         }
     };
 
-    return (
-        <div>
-            {error && <p className="text-red-500">{error}</p>}
-            <TaskForm onSave={handleTaskSave} />
-            {!tasks.length ? (
-                <p className={darkMode ?  "text-light-primary" : "text-black"}>Loading tasks...</p>
-            ) : (
-                <ul className="list-none">
-                    {tasks.map(task => (
-                        <li className="mb-4" key={task._id}>
-                            <TaskItem task={task} onSave={handleTaskSave} onDelete={handleTaskDelete} />
-                        </li>
-                    ))}
-                </ul>
-            )}
-        </div>
-    );
+    const uniqueTasks = tasks.filter((task, index, self) => 
+    index === self.findIndex(t => t._id === task._id)
+);
+
+return (
+    <div>
+        {error && <p className="text-red-500">{error}</p>}
+        <TaskForm onSave={handleTaskSave} />
+        {!uniqueTasks.length ? (
+            <p className={darkMode ?  "text-light-primary" : "text-black"}>Loading tasks...</p>
+        ) : (
+            <ul className="list-none">
+                {uniqueTasks.map(task => (
+                    <li className="mb-4" key={task._id}>
+                        <TaskItem task={task} onSave={handleTaskSave} onDelete={handleTaskDelete} />
+                    </li>
+                ))}
+            </ul>
+        )}
+    </div>
+);
 }
 
-export default TaskList;
+export default TaskList
