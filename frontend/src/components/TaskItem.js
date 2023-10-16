@@ -91,7 +91,7 @@ function TaskItem({ task, onSave, onDelete }) {
                         </button>
                     </div>
                 </div>
-           ) : (
+            ) : (
                 <div className="flex justify-between items-center">
                     <div>
                         <strong>{task.task}</strong> - {task.description} - {task.priority}
