@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
+import DatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
 import { ThemeContext } from '../context/themeContext';
-import 'tailwindcss/tailwind.css';
 
 function TaskItem({ task, onSave, onDelete }) {
     const { darkMode } = useContext(ThemeContext);
@@ -62,6 +63,26 @@ function TaskItem({ task, onSave, onDelete }) {
                             <option value="Medium">Medium</option>
                             <option value="High">High</option>
                         </select>
+                    </div>
+
+                    <div className="flex flex-col w-full md:w-1/6 mb-2 md:mb-0">
+                        <DatePicker
+                            selected={editedTask.dueDate}
+                            onChange={(date) => setEditedTask({ ...editedTask, dueDate: date })}
+                            dateFormat="MM/dd/yyyy"
+                            placeholderText="Due Date"
+                            className={`px-3 py-2 border ${inputBgColor} rounded-md w-full`}
+                        />
+                    </div>
+
+                    <div className="flex flex-col w-full md:w-1/6 mb-2 md:mb-0">
+                        <DatePicker
+                            selected={editedTask.goalDate}
+                            onChange={(date) => setEditedTask({ ...editedTask, goalDate: date })}
+                            dateFormat="MM/dd/yyyy"
+                            placeholderText="Goal Date"
+                            className={`px-3 py-2 border ${inputBgColor} rounded-md w-full`}
+                        />
                     </div>
                     
                     <div className="flex flex-col w-full md:w-auto justify-center">
