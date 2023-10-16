@@ -54,19 +54,17 @@ function TaskList() {
     return (
         <div>
             {error && <p className="text-red-500">{error}</p>}
+            <TaskForm onSave={handleTaskSave} />
             {!tasks.length ? (
                 <p>Loading tasks...</p>
             ) : (
-                <>
-                    <TaskForm onSave={handleTaskSave} />
-                    <ul className="list-none">
-                        {tasks.map(task => (
-                            <li className="mb-4" key={task._id}>
-                                <TaskItem task={task} onSave={handleTaskSave} onDelete={handleTaskDelete} />
-                            </li>
-                        ))}
-                    </ul>
-                </>
+                <ul className="list-none">
+                    {tasks.map(task => (
+                        <li className="mb-4" key={task._id}>
+                            <TaskItem task={task} onSave={handleTaskSave} onDelete={handleTaskDelete} />
+                        </li>
+                    ))}
+                </ul>
             )}
         </div>
     );
