@@ -1,23 +1,32 @@
 import mongoose from 'mongoose';
 
-const TaskSchema = new mongoose.Schema({
-    task: { 
-        type: String, 
-        required: true
-    },
-    description: { 
+const taskSchema = mongoose.Schema({
+    task: {
         type: String,
-        required: true
+        required: true,
     },
-    priority: { 
-        type: String, 
-        default: "Low",
-        enum: ["Low", "Medium", "High"],
-        required: true
+    description: {
+        type: String,
+        required: true,
     },
-    completed: { type: Boolean, default: false }
+    priority: {
+        type: String,
+        required: true,
+    },
+    completed: {
+        type: Boolean,
+        default: false,
+    },
+    dueDate: {
+        type: Date,
+        required: false,
+    },
+    goalDate: {
+        type: Date,
+        required: true,
+    },
 });
 
-const Task = mongoose.model('Task', TaskSchema);
+const Task = mongoose.model('Task', taskSchema);
 
 export default Task;

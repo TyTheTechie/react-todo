@@ -8,9 +8,9 @@ import {
 
 const router = express.Router();
 
-router.get('/', getTasks);           // Retrieve all tasks
-router.post('/', createTask);        // Create a new task
-router.put('/:id', updateTask);      // Update a task by id
-router.delete('/:id', deleteTask);   // Delete a task by id
+router.get('/', getTasks);          
+router.post('/', createTask);       
+router.put('/:id', updateTask);      
+router.delete('/:id', deleteTask);   
 
 export default router;

@@ -10,12 +10,22 @@ export const getTasks = async (req, res) => {
 };
 
 export const createTask = async (req, res) => {
-    const task = new Task(req.body);
-    console.log("Attempting to create task", req.body);
+    const { task, description, priority, dueDate, goalDate } = req.body;
+
+    const newTask = new Task({
+        task,
+        description,
+        priority,
+        dueDate,
+        goalDate
+    });
+    
+    console.log("Attempting to create task", newTask);
+
     try {
-        await task.save();
-        console.log("Task successfully saved:", task);
-        res.status(201).json(task);
+        await newTask.save();
+        console.log("Task successfully saved:", newTask);
+        res.status(201).json(newTask);
     } catch (error) {
         console.error("Error encountered while saving task:", error);
         res.status(400).json({ message: error.message });
@@ -23,9 +33,21 @@ export const createTask = async (req, res) => {
 };
 
 export const updateTask = async (req, res) => {
-    console.log("Updating Task", req.body);
+    const { task, description, priority, completed, dueDate, goalDate } = req.body;
+
+    const updatedTaskData = {
+        task,
+        description,
+        priority,
+        completed,
+        dueDate,
+        goalDate
+    };
+
+    console.log("Updating Task", updatedTaskData);
+
     try {
-        const updatedTask = await Task.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        const updatedTask = await Task.findByIdAndUpdate(req.params.id, updatedTaskData, { new: true });
         res.json(updatedTask);
     } catch (error) {
         console.error("Error updating task", error);  
